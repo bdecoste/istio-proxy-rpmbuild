@@ -27,7 +27,7 @@ set_target_properties(nghttp2 PROPERTIES COMPILE_FLAGS -DBUILDING_NGHTTP2)
 
 target_include_directories(nghttp2 PRIVATE
         ${ISTIO_NATIVE}/nghttp2/lib/includes
-        ${ISTIO_DEP_GENFILES}/
+        ${ISTIO_DEP_GENFILES}/thirdparty_build/include
 )
 
 

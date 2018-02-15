@@ -20,6 +20,7 @@ target_include_directories(istioproxy
         PRIVATE ${ISTIO_NATIVE}/mixerclient
         ${ISTIO_DEP_GENFILES}/external/com_lyft_protoc_gen_validate
         ${ISTIO_DEP_GENFILES}
+        ${ISTIO_DEP_GENFILES}/external/com_github_fmtlib_fmt
         ${ISTIO_NATIVE}/fmt
         ${ISTIO_NATIVE}/xxhash
         ${ISTIO_NATIVE}/api

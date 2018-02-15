@@ -34,7 +34,12 @@ URL:            https://%{provider_prefix}
 Source0:        proxy.zip
 Source1:        istiorc
 Source2:        buildinfo
-Source3:        dependencies.tar.gz
+Source3:        src.tar.gz
+Source4:        genfiles.tar.gz
+Source5:        thirdparty.tar.gz
+Source6:        thirdparty_build.tar.gz
+Source7:        external.tar.gz
+Source8:        build
 
 # e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
 #ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
@@ -63,18 +68,26 @@ cp %{SOURCE1} .istiorc.mk
 cp %{SOURCE2} buildinfo
 
 tar zxvf %{SOURCE3} -C ..
+tar zxvf %{SOURCE4} -C ..
+tar zxvf %{SOURCE5} -C ../genfiles
+tar zxvf %{SOURCE6} -C ../genfiles
+tar zxvf %{SOURCE7} -C ../genfiles
+cp -rf %{SOURCE8} ..
 
 mv ../build/contrib/CMakeLists.txt ../CMakeLists.txt
+mv ../build/contrib/Makefile.cmake Makefile
+
 mkdir -p ../project/src/envoy
 cp -rf ../src/envoy/* ../project/src/envoy
 cp -rf src/envoy/* ../project/src/envoy
 
-cp ../genfiles/external/envoy_api/envoy/api/v2/core/base.pb.h ../genfiles/external/envoy_api/envoy/api/base.pb.h
-cp ../genfiles/external/envoy_api/envoy/api/v2/cds.pb.h ../genfiles/external/envoy_api/envoy/api/cds.pb.h
-cp ../genfiles/external/envoy_api/envoy/config/bootstrap/v2/bootstrap.pb.h .././genfiles/external/envoy_api/envoy/api/bootstrap.pb.h
-cp ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h.in ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-mkdir -p ../genfiles/external/envoy_api/envoy/api/filter/http
-cp ../genfiles/external/envoy_api/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager.pb.h ../genfiles/external/envoy_api/envoy/api/filter/http/http_connection_manager.pb.h
+#cp ../genfiles/external/envoy_api/envoy/api/v2/core/base.pb.h ../genfiles/external/envoy_api/envoy/api/base.pb.h
+#cp ../genfiles/external/envoy_api/envoy/api/v2/cds.pb.h ../genfiles/external/envoy_api/envoy/api/cds.pb.h
+#cp ../genfiles/external/envoy_api/envoy/config/bootstrap/v2/bootstrap.pb.h .././genfiles/external/envoy_api/envoy/api/bootstrap.pb.h
+#cp ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h.in ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+#mkdir -p ../genfiles/external/envoy_api/envoy/api/filter/http
+#cp ../genfiles/external/envoy_api/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager.pb.h ../genfiles/external/envoy_api/envoy/api/filter/http/http_connection_manager.pb.h
+#cp ../src/spdlog/include/spdlog/fmt/bundled/format.h ../src/spdlog/include/spdlog/fmt/format.h
 
 
 %build
