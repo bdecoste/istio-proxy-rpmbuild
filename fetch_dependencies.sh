@@ -101,7 +101,7 @@ git reset --hard ${ABSEIL_CPP_VERSION}
 
 #### backward
 cd ${TMP_DIR}
-rm -rf envoy-api
+rm -rf backward
 git clone http://github.com/bombela/backward-cpp
 cd backward-cpp
 git reset --hard ${BACKWARD_VERSION}

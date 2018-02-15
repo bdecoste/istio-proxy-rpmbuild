@@ -81,15 +81,6 @@ mkdir -p ../project/src/envoy
 cp -rf ../src/envoy/* ../project/src/envoy
 cp -rf src/envoy/* ../project/src/envoy
 
-#cp ../genfiles/external/envoy_api/envoy/api/v2/core/base.pb.h ../genfiles/external/envoy_api/envoy/api/base.pb.h
-#cp ../genfiles/external/envoy_api/envoy/api/v2/cds.pb.h ../genfiles/external/envoy_api/envoy/api/cds.pb.h
-#cp ../genfiles/external/envoy_api/envoy/config/bootstrap/v2/bootstrap.pb.h .././genfiles/external/envoy_api/envoy/api/bootstrap.pb.h
-#cp ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h.in ../src/nghttp2/lib/includes/nghttp2/nghttp2ver.h
-#mkdir -p ../genfiles/external/envoy_api/envoy/api/filter/http
-#cp ../genfiles/external/envoy_api/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager.pb.h ../genfiles/external/envoy_api/envoy/api/filter/http/http_connection_manager.pb.h
-#cp ../src/spdlog/include/spdlog/fmt/bundled/format.h ../src/spdlog/include/spdlog/fmt/format.h
-
-
 %build
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"
