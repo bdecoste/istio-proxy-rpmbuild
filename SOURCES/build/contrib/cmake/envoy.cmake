@@ -321,6 +321,7 @@ target_include_directories(envoy PRIVATE
         ${ISTIO_GENFILES}/external/com_github_googleapis_googleapis
         )
 
+target_link_libraries(envoy PUBLIC envoy-api)
 target_link_libraries(envoy PUBLIC tracer)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
@@ -334,4 +335,5 @@ target_link_libraries(envoy PUBLIC libprotobuf)
 target_link_libraries(envoy PUBLIC yaml-cpp)
 target_link_libraries(envoy PUBLIC grpc_transcoding)
 target_link_libraries(envoy PUBLIC xxhash)
+
 

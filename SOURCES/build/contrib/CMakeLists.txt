@@ -46,7 +46,6 @@ add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
 add_subdirectory(${ISTIO_NATIVE}/protobuf/cmake)
 add_subdirectory(${ISTIO_NATIVE}/cctz)
-add_subdirectory(${ISTIO_NATIVE}/envoy-api)
 #add_subdirectory(${ISTIO_NATIVE}/googletest)
 #add_subdirectory(${ISTIO_NATIVE}/abseil-cpp)
 
@@ -58,4 +57,5 @@ include(${ISTIO_CMAKE}/istio-mixer.cmake)
 include(${ISTIO_CMAKE}/istio-proxy.cmake)
 include(${ISTIO_CMAKE}/grpc_transcoding.cmake)
 
+include(${ISTIO_CMAKE}/envoy-api.cmake)
 include(${ISTIO_CMAKE}/envoy.cmake)
