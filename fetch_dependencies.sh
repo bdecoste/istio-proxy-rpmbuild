@@ -6,6 +6,7 @@ TMP_DIR=/home/root/workspaces/tmp/src
 mkdir -p ${TMP_DIR}
 
 #################### Envoy/Mixer
+PROXY_VERSION=f005e33859d423c545bd6d2360231dfe46751aa7
 ENVOY_VERSION=e2117cbf1f7a84e4cfd7a1e00bcc053b1afb0ea7
 MIXERCLIENT_VERSION=b8948db16760777aadab04198e810250e4ec5e16
 

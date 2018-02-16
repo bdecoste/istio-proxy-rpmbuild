@@ -44,3 +44,4 @@ target_include_directories(istioproxy
         ${ISTIO_NATIVE}/protobuf/src
         ${ISTIO_NATIVE}/rapidjson/include
         )
+
