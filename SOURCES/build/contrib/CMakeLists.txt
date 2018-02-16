@@ -41,19 +41,17 @@ set_property(GLOBAL PROPERTY OPENSSL_ROOT_DIR ${ISTIO_NATIVE}/boringssl)
 # Projects already using cmake
 # Doesn't work with CMake 2.8 on trusty
 add_subdirectory(${ISTIO_NATIVE}/libevent)
-add_subdirectory(${ISTIO_NATIVE}/boringssl EXCLUDE_FROM_ALL)
+add_subdirectory(${ISTIO_NATIVE}/boringssl)
 add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
 add_subdirectory(${ISTIO_NATIVE}/protobuf/cmake)
 add_subdirectory(${ISTIO_NATIVE}/cctz)
-#add_subdirectory(${ISTIO_NATIVE}/googletest)
-#add_subdirectory(${ISTIO_NATIVE}/abseil-cpp)
 
 # Packages without cmake support - custom files, similar with the custom bazel
 include(${ISTIO_CMAKE}/cares.cmake)
 include(${ISTIO_CMAKE}/http-parser.cmake)
 include(${ISTIO_CMAKE}/nghttp2.cmake)
-include(${ISTIO_CMAKE}/istio-mixer.cmake)
+#include(${ISTIO_CMAKE}/istio-mixer.cmake)
 include(${ISTIO_CMAKE}/istio-proxy.cmake)
 include(${ISTIO_CMAKE}/grpc_transcoding.cmake)
 

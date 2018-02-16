@@ -1,14 +1,14 @@
 set(ISTIOPROXY_SOURCES
-        ${ISTIO_PROXY}/src/envoy/mixer/http_filter.cc
-        ${ISTIO_PROXY}/src/envoy/mixer/utils.cc
-        ${ISTIO_PROXY}/src/envoy/mixer/tcp_filter.cc
-        ${ISTIO_PROXY}/src/envoy/mixer/mixer_control.cc
-        ${ISTIO_PROXY}/src/envoy/mixer/config.cc
-        ${ISTIO_PROXY}/src/envoy/mixer/grpc_transport.cc
-        ${ISTIO_PROXY}/src/envoy/auth/http_filter.cc
-        ${ISTIO_PROXY}/src/envoy/auth/http_filter_factory.cc
-        ${ISTIO_PROXY}/src/envoy/auth/jwt_authenticator.cc
-        ${ISTIO_PROXY}/src/envoy/auth/jwt.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/http_filter.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/utils.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/tcp_filter.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/mixer_control.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/config.cc
+        #${ISTIO_PROXY}/src/envoy/mixer/grpc_transport.cc
+        #${ISTIO_PROXY}/src/envoy/auth/http_filter.cc
+        #${ISTIO_PROXY}/src/envoy/auth/http_filter_factory.cc
+        #${ISTIO_PROXY}/src/envoy/auth/jwt_authenticator.cc
+        #${ISTIO_PROXY}/src/envoy/auth/jwt.cc
         )
 
 
@@ -44,4 +44,5 @@ target_include_directories(istioproxy
         ${ISTIO_NATIVE}/protobuf/src
         ${ISTIO_NATIVE}/rapidjson/include
         )
+
 

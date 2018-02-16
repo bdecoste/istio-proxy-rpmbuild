@@ -42,8 +42,6 @@ set(ISTIOMIXER_SOURCES
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/check.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/report.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/service.pb.cc
-        #${ISTIO_GENFILES}/external/googleapis_git/google/rpc/status.pb.cc
-        #${ISTIO_GENFILES}/src/envoy/mixer/string_map.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerclient_git/src/global_dictionary.cc
         )
 

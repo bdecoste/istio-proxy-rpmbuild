@@ -78,8 +78,14 @@ mv ../build/contrib/CMakeLists.txt ../CMakeLists.txt
 mv ../build/contrib/Makefile.cmake Makefile
 
 mkdir -p ../project/src/envoy
+cp -rf src/envoy/* ../src/envoy 
 cp -rf ../src/envoy/* ../project/src/envoy
-cp -rf src/envoy/* ../project/src/envoy
+
+mkdir -p ../genfiles/external/envoy/source/common/filesystem
+cp ../genfiles/external/envoy/source/common/filesystem/inotify/watcher_impl.h ../genfiles/external/envoy/source/common/filesystem
+
+mkdir ../genfiles/thirdparty_build/include/sys
+cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/include/sys/event.h
 
 %build
 

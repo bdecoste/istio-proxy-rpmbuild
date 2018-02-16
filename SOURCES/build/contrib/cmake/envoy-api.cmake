@@ -1,4 +1,4 @@
-add_library(envoy-api STATIC
+set(ENVOYAPI_SOURCES
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/ratelimit/v2/rls.pb.cc
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/ratelimit/v2/rls.pb.validate.cc
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/discovery/v2/ads.pb.cc
@@ -103,12 +103,13 @@ add_library(envoy-api STATIC
 
         )
 
-target_include_directories(envoy-api PRIVATE
+add_library(envoyapi OBJECT ${ENVOYAPI_SOURCES})
+
+target_include_directories(envoyapi PRIVATE
     
         ${ISTIO_DEP_GENFILES}/external/envoy_api
         ${ISTIO_DEP_GENFILES}/external/com_google_protobuf/src
         ${ISTIO_DEP_GENFILES}/external/com_lyft_protoc_gen_validate
       
         )
-
 
