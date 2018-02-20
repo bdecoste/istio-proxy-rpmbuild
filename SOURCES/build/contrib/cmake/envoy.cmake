@@ -277,7 +277,8 @@ else ()
             )
 endif ()
 
-add_executable(envoy ${ENVOY_SOURCE_FILES} $<TARGET_OBJECTS:istioproxy>)
+#add_executable(envoy ${ENVOY_SOURCE_FILES} $<TARGET_OBJECTS:istioproxy>)
+add_executable(envoy ${ENVOY_SOURCE_FILES})
 
 if (DEFINED ANDROID_TOOLCHAIN)
     target_link_libraries(envoy PUBLIC -llog -landroid)
@@ -291,7 +292,6 @@ endif ()
 set(CMAKE_CXX_FLAGS " -DHAVE_LONG_LONG ${CMAKE_CXX_FLAGS}")
 
 target_include_directories(envoy PRIVATE
-        ${ISTIO_GENFILES}/external/com_lyft_protoc_gen_validate
         ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/
         ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy
         ${ISTIO_DEP_GENFILES}/external/envoy_api
@@ -310,8 +310,6 @@ target_include_directories(envoy PRIVATE
         ${ISTIO_DEP_GENFILES}/thirdparty_build/include
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git
         ${ISTIO_DEP_GENFILES}/external/mixerclient_git/
-        ${ISTIO_GENFILES}/external/envoy
-        ${ISTIO_GENFILES}/external/googleapis_git
         ${ISTIO_DEP_GENFILES}/external/googleapis
         ${ISTIO_NATIVE}/nghttp2/lib/includes
         ${ISTIO_DEP_GENFILES}/
@@ -351,7 +349,7 @@ target_link_libraries(envoy PUBLIC tracer)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
 target_link_libraries(envoy PUBLIC ssl)
-target_link_libraries(envoy PUBLIC istiomixer)
+#target_link_libraries(envoy PUBLIC istiomixer)
 target_link_libraries(envoy PUBLIC crypto)
 target_link_libraries(envoy PUBLIC nghttp2)
 target_link_libraries(envoy PUBLIC event_pthreads_static)

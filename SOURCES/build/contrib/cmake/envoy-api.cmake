@@ -1,4 +1,5 @@
-set(ENVOYAPI_SOURCES
+#set(ENVOYAPI_SOURCES
+add_library(envoy-api STATIC
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/ratelimit/v2/rls.pb.cc
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/ratelimit/v2/rls.pb.validate.cc
           ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/service/discovery/v2/ads.pb.cc
@@ -103,13 +104,37 @@ set(ENVOYAPI_SOURCES
 
         )
 
-add_library(envoyapi OBJECT ${ENVOYAPI_SOURCES})
+set_target_properties(envoy-api PROPERTIES COMPILE_FLAGS -DBUILDING_ENVOY_API)
 
-target_include_directories(envoyapi PRIVATE
+
+target_include_directories(envoy-api PRIVATE
     
-        ${ISTIO_DEP_GENFILES}/external/envoy_api
+     
         ${ISTIO_DEP_GENFILES}/external/com_google_protobuf/src
+    
+
+        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/
+        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy
+        ${ISTIO_DEP_GENFILES}/external/envoy_api
         ${ISTIO_DEP_GENFILES}/external/com_lyft_protoc_gen_validate
+        ${ISTIO_DEP_GENFILES}/external/com_github_gogo_protobuf
+        ${ISTIO_DEP_GENFILES}/external/com_github_fmtlib_fmt
+        ${ISTIO_DEP_GENFILES}/external/envoy/source
+        ${ISTIO_DEP_GENFILES}/external/envoy
+        ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc/include
+        ${ISTIO_DEP_GENFILES}/external/promotheus_metrics_model/
+        ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/include
+        ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/3rd_party/include/
+        ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp/include
+        ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc
+        ${ISTIO_DEP_GENFILES}/third_party/cares
+        ${ISTIO_DEP_GENFILES}/thirdparty_build/include
+        ${ISTIO_DEP_GENFILES}/external/mixerapi_git
+        ${ISTIO_DEP_GENFILES}/external/mixerclient_git/
+        ${ISTIO_DEP_GENFILES}/external/googleapis
+        ${ISTIO_NATIVE}/nghttp2/lib/includes
+        ${ISTIO_DEP_GENFILES}/
+        .
       
         )
 
