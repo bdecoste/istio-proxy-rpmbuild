@@ -42,7 +42,7 @@ set(ENVOY_SOURCE_FILES
           ${ISTIO_NATIVE}/envoy/source/common/event/dispatcher_impl.cc
           ${ISTIO_NATIVE}/envoy/source/common/event/libevent.cc
           ${ISTIO_NATIVE}/envoy/source/common/filesystem/inotify/watcher_impl.cc
-          ${ISTIO_NATIVE}/envoy/source/common/filesystem/kqueue/watcher_impl.cc
+#          ${ISTIO_NATIVE}/envoy/source/common/filesystem/kqueue/watcher_impl.cc
           ${ISTIO_NATIVE}/envoy/source/common/filesystem/filesystem_impl.cc
           ${ISTIO_NATIVE}/envoy/source/common/filter/auth/client_ssl.cc
           ${ISTIO_NATIVE}/envoy/source/common/filter/listener/original_dst.cc
@@ -299,13 +299,23 @@ target_include_directories(envoy PRIVATE
         ${ISTIO_DEP_GENFILES}/external/com_github_gogo_protobuf
         ${ISTIO_DEP_GENFILES}/external/com_github_fmtlib_fmt
         ${ISTIO_DEP_GENFILES}/external/envoy/source
+        ${ISTIO_DEP_GENFILES}/external/envoy
+        ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc/include
+        ${ISTIO_DEP_GENFILES}/external/promotheus_metrics_model/
+        ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/include
+        ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/3rd_party/include/
+        ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp/include
+        ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc
         ${ISTIO_DEP_GENFILES}/third_party/cares
         ${ISTIO_DEP_GENFILES}/thirdparty_build/include
+        ${ISTIO_DEP_GENFILES}/external/mixerapi_git
+        ${ISTIO_DEP_GENFILES}/external/mixerclient_git/
         ${ISTIO_GENFILES}/external/envoy
         ${ISTIO_GENFILES}/external/googleapis_git
         ${ISTIO_DEP_GENFILES}/external/googleapis
         ${ISTIO_NATIVE}/nghttp2/lib/includes
         ${ISTIO_DEP_GENFILES}/
+        .
 
         ${ISTIO_DEP_GENFILES}/cares/
 
