@@ -345,18 +345,19 @@ target_include_directories(envoy PRIVATE
         )
 
 target_link_libraries(envoy PUBLIC envoy-api)
-target_link_libraries(envoy PUBLIC tracer)
+target_link_libraries(envoy PUBLIC libevent)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
 target_link_libraries(envoy PUBLIC ssl)
 #target_link_libraries(envoy PUBLIC istiomixer)
 target_link_libraries(envoy PUBLIC crypto)
 target_link_libraries(envoy PUBLIC nghttp2)
-target_link_libraries(envoy PUBLIC event_pthreads_static)
-target_link_libraries(envoy PUBLIC event_core_static)
+#target_link_libraries(envoy PUBLIC event_pthreads_static)
+#target_link_libraries(envoy PUBLIC event_core_static)
 target_link_libraries(envoy PUBLIC libprotobuf)
 target_link_libraries(envoy PUBLIC yaml-cpp)
 target_link_libraries(envoy PUBLIC grpc_transcoding)
 target_link_libraries(envoy PUBLIC xxhash)
+target_link_libraries(envoy PUBLIC fmt)
 
 

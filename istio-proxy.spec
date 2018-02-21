@@ -84,10 +84,15 @@ cp -rf ../src/envoy/* ../project/src/envoy
 mkdir -p ../genfiles/external/envoy/source/common/filesystem
 cp ../genfiles/external/envoy/source/common/filesystem/inotify/watcher_impl.h ../genfiles/external/envoy/source/common/filesystem
 
-mkdir ../genfiles/thirdparty_build/include/sys
+mkdir -p ../genfiles/thirdparty_build/include/sys
 cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/include/sys/event.h
 
 %build
+
+pushd ../src/libevent
+./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
+make V=1 install
+popd
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"
 

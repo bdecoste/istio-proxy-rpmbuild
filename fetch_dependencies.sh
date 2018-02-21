@@ -12,7 +12,7 @@ MIXERCLIENT_VERSION=c17f6840ef0f86724e7847307b0fb89a3e21eb80
 
 #################### Build Recipes
 CARES_VERSION=cares-1_13_0
-LIBEVENT_VERSION=release-2.1.8-stable
+LIBEVENT_VERSION=2.1.8-stable
 NGHTTP2_VERSION=v1.30.0
 BORINGSSL_VERSION=a20bb7ff8bb5057065a2e7941249773f9676cf45
 YAML_CPP_VERSION=yaml-cpp-0.6.1
@@ -33,6 +33,7 @@ RAPIDJSON_VERSION=f54b0e47a08782a6131cc3d60f94d038fa6e0a51
 SPDLOG_VERSION=v0.16.2
 TCLAP_VERSION=3627d9402e529770df9b0edf2aa8c0e0d6c6bb41
 XXHASH_VERSION=7caf8bd76440c75dfe1070d3acfbd7891aea8fca
+FMT_VERSION=4.0.0
 
 #################### Unknown
 CCTZ_VERSION=master
@@ -79,7 +80,11 @@ mv data-plane-api envoy-api
 #### libevent
 cd ${TMP_DIR}
 rm -rf libevent
-git clone http://github.com/libevent/libevent -b ${LIBEVENT_VERSION}
+#git clone http://github.com/libevent/libevent -b ${LIBEVENT_VERSION}
+wget -O libevent-"$LIBEVENT_VERSION".tar.gz https://github.com/libevent/libevent/releases/download/release-"$LIBEVENT_VERSION"/libevent-"$LIBEVENT_VERSION".tar.gz
+tar xf libevent-"$LIBEVENT_VERSION".tar.gz
+mv libevent-"$LIBEVENT_VERSION" libevent
+rm libevent-"$LIBEVENT_VERSION".tar.gz
 
 #### boringssl
 cd ${TMP_DIR}
@@ -183,6 +188,11 @@ git reset --hard ${MIXERCLIENT_VERSION}
 cd ${TMP_DIR}
 rm -rf cctz
 git clone https://github.com/google/cctz -b ${CCTZ_VERSION}
+
+#### fmt
+cd ${TMP_DIR}
+rm -rf fmt
+git clone https://github.com/fmtlib/fmt -b ${FMT_VERSION}
 
 ############### prune
 cd ${TMP_DIR}

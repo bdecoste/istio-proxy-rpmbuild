@@ -40,12 +40,15 @@ set_property(GLOBAL PROPERTY OPENSSL_ROOT_DIR ${ISTIO_NATIVE}/boringssl)
 
 # Projects already using cmake
 # Doesn't work with CMake 2.8 on trusty
-add_subdirectory(${ISTIO_NATIVE}/libevent)
 add_subdirectory(${ISTIO_NATIVE}/boringssl)
 add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
 add_subdirectory(${ISTIO_NATIVE}/protobuf/cmake)
 add_subdirectory(${ISTIO_NATIVE}/cctz)
+add_subdirectory(${ISTIO_NATIVE}/fmt
+
+
+)
 
 # Packages without cmake support - custom files, similar with the custom bazel
 include(${ISTIO_CMAKE}/cares.cmake)
