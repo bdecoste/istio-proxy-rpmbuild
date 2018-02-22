@@ -291,7 +291,7 @@ endif ()
 
 set(CMAKE_CXX_FLAGS " -DHAVE_LONG_LONG ${CMAKE_CXX_FLAGS}")
 
-target_include_directories(envoy PRIVATE
+target_include_directories(envoy PUBLIC
         ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/
         ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy
         ${ISTIO_DEP_GENFILES}/external/envoy_api
@@ -312,6 +312,7 @@ target_include_directories(envoy PRIVATE
         ${ISTIO_DEP_GENFILES}/external/mixerclient_git/
         ${ISTIO_DEP_GENFILES}/external/googleapis
         ${ISTIO_NATIVE}/nghttp2/lib/includes
+        ${ISTIO_NATIVE}/googletest/googletest/include
         ${ISTIO_DEP_GENFILES}/
         .
 
@@ -344,20 +345,26 @@ target_include_directories(envoy PRIVATE
         ${ISTIO_GENFILES}/external/com_github_googleapis_googleapis
         )
 
+target_link_libraries(envoy PUBLIC gtest)
+target_link_libraries(envoy PUBLIC gtest_main)
+target_link_libraries(envoy PUBLIC gmock)
+target_link_libraries(envoy PUBLIC cctz)
+target_link_libraries(envoy PUBLIC absl_strings)
 target_link_libraries(envoy PUBLIC envoy-api)
-target_link_libraries(envoy PUBLIC libevent)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
 target_link_libraries(envoy PUBLIC ssl)
-#target_link_libraries(envoy PUBLIC istiomixer)
 target_link_libraries(envoy PUBLIC crypto)
 target_link_libraries(envoy PUBLIC nghttp2)
-#target_link_libraries(envoy PUBLIC event_pthreads_static)
-#target_link_libraries(envoy PUBLIC event_core_static)
+target_link_libraries(envoy PUBLIC event_pthreads)
+target_link_libraries(envoy PUBLIC event_core)
 target_link_libraries(envoy PUBLIC libprotobuf)
 target_link_libraries(envoy PUBLIC yaml-cpp)
 target_link_libraries(envoy PUBLIC grpc_transcoding)
 target_link_libraries(envoy PUBLIC xxhash)
 target_link_libraries(envoy PUBLIC fmt)
+#target_link_libraries(envoy PUBLIC grpc)
+
+
 
 

@@ -74,8 +74,8 @@ tar zxvf %{SOURCE6} -C ../genfiles
 tar zxvf %{SOURCE7} -C ../genfiles
 cp -rf %{SOURCE8} ..
 
-mv ../build/contrib/CMakeLists.txt ../CMakeLists.txt
-mv ../build/contrib/Makefile.cmake Makefile
+cp ../build/contrib/CMakeLists.txt ../CMakeLists.txt
+cp ../build/contrib/Makefile.cmake Makefile
 
 mkdir -p ../project/src/envoy
 cp -rf src/envoy/* ../src/envoy 
@@ -92,6 +92,7 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 pushd ../src/libevent
 ./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
 make V=1 install
+#cp .libs/*.a ../../cmake-build-debug/
 popd
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"

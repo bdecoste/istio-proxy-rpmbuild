@@ -16,6 +16,7 @@ LIBEVENT_VERSION=2.1.8-stable
 NGHTTP2_VERSION=v1.30.0
 BORINGSSL_VERSION=a20bb7ff8bb5057065a2e7941249773f9676cf45
 YAML_CPP_VERSION=yaml-cpp-0.6.1
+#BENCHMARK_VERSION=e1c3a83b8197cf02e794f61228461c27d4e78cfb
 
 
 #################### Bazel 
@@ -34,6 +35,8 @@ SPDLOG_VERSION=v0.16.2
 TCLAP_VERSION=3627d9402e529770df9b0edf2aa8c0e0d6c6bb41
 XXHASH_VERSION=7caf8bd76440c75dfe1070d3acfbd7891aea8fca
 FMT_VERSION=4.0.0
+GOOGLETEST_VERSION=43863938377a9ea1399c0596269e0890b5c5515a
+GRPC_VERSION=04ecc18e3a5b8de5bb7ffa20700364ad88dc16f9
 
 #################### Unknown
 CCTZ_VERSION=master
@@ -97,6 +100,27 @@ git reset --hard ${BORING_VERSION}
 cd ${TMP_DIR}
 rm -rf yaml-cpp
 git clone http://github.com/jbeder/yaml-cpp -b ${YAML_CPP_VERSION}
+
+#### googletest
+cd ${TMP_DIR}
+rm -rf googletest
+git clone http://github.com/google/googletest
+cd googletest
+git reset --hard ${GOOGLETEST_VERSION}
+
+#### grpc
+cd ${TMP_DIR}
+rm -rf grpc
+git clone https://github.com/grpc/grpc.git
+cd grpc
+git reset --hard ${GRPC_VERSION}
+
+#### benchmark
+#cd ${TMP_DIR}
+#rm -rf benchmark
+#git clone http://github.com/google/benchmark
+#cd benchmark
+#git reset --hard ${BENCHMARK_VERSION}
 
 #### abseil-cpp
 cd ${TMP_DIR}
