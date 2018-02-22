@@ -58,7 +58,7 @@ add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
 add_subdirectory(${ISTIO_NATIVE}/protobuf/cmake)
 add_subdirectory(${ISTIO_NATIVE}/fmt)
-#add_subdirectory(${ISTIO_NATIVE}/grpc)
+add_subdirectory(${ISTIO_NATIVE}/opentracing-cpp)
 
 # Packages without cmake support - custom files, similar with the custom bazel
 include(${ISTIO_CMAKE}/cares.cmake)
@@ -66,5 +66,6 @@ include(${ISTIO_CMAKE}/http-parser.cmake)
 include(${ISTIO_CMAKE}/nghttp2.cmake)
 include(${ISTIO_CMAKE}/grpc_transcoding.cmake)
 
+include(${ISTIO_CMAKE}/istio-mixer.cmake)
 include(${ISTIO_CMAKE}/envoy-api.cmake)
 include(${ISTIO_CMAKE}/envoy.cmake)

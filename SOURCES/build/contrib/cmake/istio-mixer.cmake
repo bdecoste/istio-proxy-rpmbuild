@@ -31,7 +31,7 @@ set(ISTIOMIXER_SOURCES
         ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_template.cc
         ${ISTIO_NATIVE}/mixerclient/api_spec/src/path_matcher_node.cc
 
-        ${ISTIO_DEP_GENFILES}/external/gogoproto_git/gogoproto/gogo.pb.cc
+        #${ISTIO_DEP_GENFILES}/external/gogoproto_git/gogoproto/gogo.pb.cc
 
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/config/client/api_spec.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/config/client/auth.pb.cc
@@ -51,6 +51,9 @@ add_library(istiomixer STATIC ${ISTIOMIXER_SOURCES})
 target_include_directories(istiomixer
         PRIVATE ${ISTIO_NATIVE}/mixerclient
         ${ISTIO_DEP_GENFILES}/external/com_lyft_protoc_gen_validate
+        
+        ${ISTIO_DEP_GENFILES}/thirdparty_build/include
+
         ${ISTIO_NATIVE}/fmt
         ${ISTIO_NATIVE}/xxhash
         ${ISTIO_NATIVE}/api

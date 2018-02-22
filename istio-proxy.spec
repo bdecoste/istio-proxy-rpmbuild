@@ -89,11 +89,25 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 %build
 
-pushd ../src/libevent
-./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
-make V=1 install
-#cp .libs/*.a ../../cmake-build-debug/
-popd
+#export PATH=/opt/rh/devtoolset-4/root/usr/bin:/opt/rh/rh-java-common/root/usr/bin:/usr/local/apache-maven-3.3.9/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin
+
+#export LD_LIBRARY_PATH=/opt/rh/devtoolset-4/root/usr/lib64:/opt/rh/devtoolset-4/root/usr/lib:/lib64:/lib:~/rpmbuild/BUILD/src/grpc/libs/opt
+
+#pushd ../src/libevent
+#./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
+#make V=1 install
+#popd
+
+#pushd ../src/grpc
+#make
+#make install-static_c
+#make install-static_cxx
+#popd
+
+#pushd ../src/LuaJIT
+#sed -i "s/mixed/static/g" src/Makefile
+#make V=1 PREFIX="$THIRDPARTY_BUILD" install
+#popd
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"
 

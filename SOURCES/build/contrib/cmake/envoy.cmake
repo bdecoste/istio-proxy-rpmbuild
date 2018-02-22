@@ -231,31 +231,28 @@ set(ENVOY_SOURCE_FILES
           ${ISTIO_DEP_GENFILES}/src/envoy/auth/config.pb.validate.cc
 
 
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/config/filter/http/fault/v2/fault.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/config/filter/accesslog/v2/accesslog.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/config/filter/network/mongo_proxy/v2/mongo_proxy.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/timestamp.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/wrappers.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/descriptor.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/any.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/empty.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_google_protobuf/google/protobuf/struct.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp/lightstep-tracer-common/collector.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp/lightstep-tracer-common/lightstep_carrier.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/envoy/source/common/ratelimit/ratelimit.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/lightstep_vendored_googleapis/google/api/annotations.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/lightstep_vendored_googleapis/google/api/http.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc/src/proto/grpc/health/v1/health.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/promotheus_metrics_model/metrics.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/googleapis/google/rpc/status.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/googleapis/google/api/annotations.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/googleapis/google/api/http.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/com_lyft_protoc_gen_validate/validate/validate.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/com_github_gogo_protobuf/gogoproto/gogo.pb.cc
+          #${ISTIO_DEP_GENFILES}/external/com_github_googleapis_googleapis/google/rpc/status.pb.cc
 
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/address.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/base.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/config/bootstrap/v2/bootstrap.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/cds.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/discovery.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/eds.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/health_check.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/lds.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/core/protocol.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/rds.pb.cc
+          ${ISTIO_DEP_GENFILES}/external/envoy/source/common/ratelimit/ratelimit.pb.cc
 
-        ${ISTIO_DEP_GENFILES}/external/envoy_api/envoy/api/v2/ratelimit/ratelimit.pb.cc
-
-        ${ISTIO_DEP_GENFILES}/external/com_github_googleapis_googleapis/google/rpc/status.pb.cc
-
-        ${ISTIO_DEP_GENFILES}/external/googleapis/google/api/annotations.pb.cc
-        ${ISTIO_DEP_GENFILES}/external/googleapis/google/api/http.pb.cc
-        # TODO: move to separate cmake - the abseil cmake doesn't seem to work on ARM
-        # This also doesn't compile on android.
-        #${ISTIO_NATIVE}/abseil-cpp/absl/base/internal/spinlock_wait.cc
         )
 
 # Not working/used on android or musl. The file installs a signal handler for backtraces.
@@ -305,6 +302,7 @@ target_include_directories(envoy PUBLIC
         ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/include
         ${ISTIO_DEP_GENFILES}/external/io_opentracing_cpp/3rd_party/include/
         ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp/include
+        ${ISTIO_DEP_GENFILES}/external/com_lightstep_tracer_cpp
         ${ISTIO_DEP_GENFILES}/external/com_github_grpc_grpc
         ${ISTIO_DEP_GENFILES}/third_party/cares
         ${ISTIO_DEP_GENFILES}/thirdparty_build/include
@@ -349,10 +347,13 @@ target_link_libraries(envoy PUBLIC gtest)
 target_link_libraries(envoy PUBLIC gtest_main)
 target_link_libraries(envoy PUBLIC gmock)
 target_link_libraries(envoy PUBLIC cctz)
+target_link_libraries(envoy PUBLIC absl_base)
 target_link_libraries(envoy PUBLIC absl_strings)
 target_link_libraries(envoy PUBLIC envoy-api)
+target_link_libraries(envoy PUBLIC luajit-5.1)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
+target_link_libraries(envoy PUBLIC opentracing)
 target_link_libraries(envoy PUBLIC ssl)
 target_link_libraries(envoy PUBLIC crypto)
 target_link_libraries(envoy PUBLIC nghttp2)
@@ -363,8 +364,9 @@ target_link_libraries(envoy PUBLIC yaml-cpp)
 target_link_libraries(envoy PUBLIC grpc_transcoding)
 target_link_libraries(envoy PUBLIC xxhash)
 target_link_libraries(envoy PUBLIC fmt)
-#target_link_libraries(envoy PUBLIC grpc)
-
-
+target_link_libraries(envoy PUBLIC grpc++)
+target_link_libraries(envoy PUBLIC grpc)
+target_link_libraries(envoy PUBLIC grpc_cronet)
+target_link_libraries(envoy PUBLIC istiomixer)
 
 

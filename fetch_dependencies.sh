@@ -16,6 +16,7 @@ LIBEVENT_VERSION=2.1.8-stable
 NGHTTP2_VERSION=v1.30.0
 BORINGSSL_VERSION=a20bb7ff8bb5057065a2e7941249773f9676cf45
 YAML_CPP_VERSION=yaml-cpp-0.6.1
+LUA_VERSION=v2.0.5
 #BENCHMARK_VERSION=e1c3a83b8197cf02e794f61228461c27d4e78cfb
 
 
@@ -37,6 +38,7 @@ XXHASH_VERSION=7caf8bd76440c75dfe1070d3acfbd7891aea8fca
 FMT_VERSION=4.0.0
 GOOGLETEST_VERSION=43863938377a9ea1399c0596269e0890b5c5515a
 GRPC_VERSION=04ecc18e3a5b8de5bb7ffa20700364ad88dc16f9
+OPENTRACING_VERSION=e57161e2a4bd1f9d3a8d3edf23185f033bb45f17
 
 #################### Unknown
 CCTZ_VERSION=master
@@ -54,6 +56,11 @@ mv lightstep-tracer-cpp lightstep
 cd ${TMP_DIR}
 rm -rf lightstep-tracer-common
 git clone http://github.com/lightstep/lightstep-tracer-common -b ${LIGHTSTEP_TRACER_COMMON_VERSION}
+
+#### lua
+cd ${TMP_DIR}
+rm -rf LuaJIT
+git clone https://github.com/LuaJIT/LuaJIT -b ${LUA_VERSION}
 
 #### c-ares
 cd ${TMP_DIR}
@@ -114,6 +121,14 @@ rm -rf grpc
 git clone https://github.com/grpc/grpc.git
 cd grpc
 git reset --hard ${GRPC_VERSION}
+git submodule update --init
+
+#### opentracing
+cd ${TMP_DIR}
+rm -rf opentracing-cpp
+git clone http://github.com/opentracing/opentracing-cpp
+cd opentracing-cpp
+git reset --hard ${OPENTRACING_VERSION}
 
 #### benchmark
 #cd ${TMP_DIR}
