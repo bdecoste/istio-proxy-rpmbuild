@@ -95,24 +95,43 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
-#pushd ../src/libevent
-#./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
-#make V=1 install
-#popd
+pushd ../src/libevent
+./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
+make DESTDIR=/root/install install
+popd
 
-#pushd ../src/grpc
-#make
-#make install-static_c
-#make install-static_cxx
-#make install-plugins
-#make install-pkg-config_cxx
-#make install-pkg-config_c
-#popd
+pushd ../src/protobuf
+./configure
+make check
+make DESTDIR=/root/install install
+ldconfig
+popd
 
-#pushd ../src/LuaJIT
-#sed -i "s/mixed/static/g" src/Makefile
-#make V=1 PREFIX="$THIRDPARTY_BUILD" install
-#popd
+pushd ../src/grpc
+make
+make DESTDIR=/root/install install
+popd
+
+pushd ../src/LuaJIT
+sed -i "s/mixed/static/g" src/Makefile
+make DESTDIR=/root/install  install
+popd
+
+pushd ../src/opentracing-cpp
+mkdir build
+cd build
+cmake ..
+make
+make DESTDIR=/root/install install
+popd
+
+pushd ../src/lightstep
+mkdir build
+cd build
+cmake ..
+make
+make DESTDIR=/root/install install
+popd
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"
 

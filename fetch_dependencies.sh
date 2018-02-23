@@ -17,6 +17,7 @@ NGHTTP2_VERSION=v1.30.0
 BORINGSSL_VERSION=a20bb7ff8bb5057065a2e7941249773f9676cf45
 YAML_CPP_VERSION=yaml-cpp-0.6.1
 LUA_VERSION=v2.0.5
+ZLIB_VERSION=v1.2.11
 #BENCHMARK_VERSION=e1c3a83b8197cf02e794f61228461c27d4e78cfb
 
 
@@ -24,8 +25,8 @@ LUA_VERSION=v2.0.5
 
 ENVOY_API_VERSION=4e533f22baced334c4aba68fb60c5fc439f0fe9c
 LIGHTSTEP_VERSION=6a198acd328f976984699f7272bbec7c8b220f65
-LIGHTSTEP_TRACER_COMMON_VERSION=v1.0.0
-PROTOBUF_VERSION=v3.5.0
+#LIGHTSTEP_TRACER_COMMON_VERSION=v1.0.0
+PROTOBUF_VERSION=3.5.0
 ABSEIL_CPP_VERSION=787891a3882795cee0364e8a0f0dda315578d155
 BACKWARD_VERSION=44ae9609e860e3428cd057f7052e505b4819eb84
 GOOGLEAPIS_VERSION=d6f78d948c53f3b400bb46996eb3084359914f9b
@@ -53,9 +54,14 @@ cd ..
 mv lightstep-tracer-cpp lightstep
 
 #### lightstep-tracer-common
+#cd ${TMP_DIR}
+#rm -rf lightstep-tracer-common
+#git clone http://github.com/lightstep/lightstep-tracer-common -b ${LIGHTSTEP_TRACER_COMMON_VERSION}
+
+#### zlib
 cd ${TMP_DIR}
-rm -rf lightstep-tracer-common
-git clone http://github.com/lightstep/lightstep-tracer-common -b ${LIGHTSTEP_TRACER_COMMON_VERSION}
+rm -rf zlib
+git clone https://github.com/madler/zlib -b ${ZLIB_VERSION}
 
 #### lua
 cd ${TMP_DIR}
@@ -71,7 +77,11 @@ mv c-ares cares
 #### protobuf
 cd ${TMP_DIR}
 rm -rf protobuf
-git clone http://github.com/google/protobuf -b ${PROTOBUF_VERSION}
+#git clone http://github.com/google/protobuf -b ${PROTOBUF_VERSION}
+wget https://github.com/google/protobuf/releases/download/v3.5.0/protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
+tar xvf protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
+rm protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
+mv protobuf-${PROTOBUF_VERSION} protobuf
 
 #### nghttp2
 cd ${TMP_DIR}
