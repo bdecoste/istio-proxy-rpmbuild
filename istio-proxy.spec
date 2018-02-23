@@ -93,6 +93,8 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 #export LD_LIBRARY_PATH=/opt/rh/devtoolset-4/root/usr/lib64:/opt/rh/devtoolset-4/root/usr/lib:/lib64:/lib:~/rpmbuild/BUILD/src/grpc/libs/opt
 
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
 #pushd ../src/libevent
 #./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
 #make V=1 install
@@ -102,6 +104,9 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 #make
 #make install-static_c
 #make install-static_cxx
+#make install-plugins
+#make install-pkg-config_cxx
+#make install-pkg-config_c
 #popd
 
 #pushd ../src/LuaJIT

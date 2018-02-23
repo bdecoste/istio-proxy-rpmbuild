@@ -45,7 +45,7 @@ CCTZ_VERSION=master
 
 #### lightstep
 cd ${TMP_DIR}
-rm -rf lightstep787891a3882795cee0364e8a0f0dda315578d155
+rm -rf lightstep
 git clone http://github.com/lightstep/lightstep-tracer-cpp
 cd lightstep-tracer-cpp
 git reset --hard ${LIGHTSTEP_VERSION}
