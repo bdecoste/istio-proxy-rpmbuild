@@ -7,11 +7,12 @@
 * git clone https://github.com/bdecoste/istio-proxy-rpmbuild
 * cd istio-proxy-rpmbuild
 * cp -rf SOURCES/* /root/rpmbuild/SOURCES
-* edit TMP_DIR in fetch_ependencies.sh to point to an appropriate local dir (optional - defaults to /home/root/workspaces/tmp)
-* run fetch_ependencies.sh
+* edit TMP_DIR in fetch_dependencies.sh to point to an appropriate local dir (optional - defaults to /home/root/workspaces/tmp)
+* run fetch_dependencies.sh
 * cp ${TMP_DIR}/src.tar.gz /root/rpmbuild/SOURCES
-* Copy the spec file /root/rpmbuild
-* Run 'rpmbuild -ba istio-proxy.spec' from ~/rpmbuild
+* cp istio-proxy.spec /root/rpmbuild
+* cd /root/rpmbuild
+* rpmbuild -ba istio-proxy.spec
 
 
 
