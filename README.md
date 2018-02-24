@@ -1,14 +1,16 @@
 # Istio Proxy SRPM Builder
 
-## To build the proxy srpm
+## To build the proxy srpm (assume running as root)
 
+* mkdir -p /root/install
+* mkdir -p /root/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 * git clone https://github.com/bdecoste/istio-proxy-rpmbuild
 * cd istio-proxy-rpmbuild
-* edit TMP_DIR in fetch_ependencies.sh to point to an appropriate local dir (optional)
+* cp -rf SOURCES/* /root/rpmbuild/SOURCES
+* edit TMP_DIR in fetch_ependencies.sh to point to an appropriate local dir (optional - defaults to /home/root/workspaces/tmp)
 * run fetch_ependencies.sh
-* cp ${TMP_DIR}/src/tar.gc SOURCES
-* Copy the spec file and SOURCES to ~/rpmbuild
-* Create other required rpm dirs (BUILD,BUILDROOT,RPMS,SPECS,SRPMS) 
+* cp ${TMP_DIR}/src.tar.gz /root/rpmbuild/SOURCES
+* Copy the spec file /root/rpmbuild
 * Run 'rpmbuild -ba istio-proxy.spec' from ~/rpmbuild
 
 

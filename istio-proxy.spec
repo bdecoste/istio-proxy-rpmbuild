@@ -89,96 +89,50 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 %build
 
-#export PATH=/opt/rh/devtoolset-4/root/usr/bin:/opt/rh/rh-java-common/root/usr/bin:/usr/local/apache-maven-3.3.9/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin
-
-#export LD_LIBRARY_PATH=/opt/rh/devtoolset-4/root/usr/lib64:/opt/rh/devtoolset-4/root/usr/lib:/lib64:/lib:~/rpmbuild/BUILD/src/grpc/libs/opt
-
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export LD_LIBRARY_PATH=/root/install/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=/root/install/lib/pkgconfig
+export PATH=/root/install/bin:$PATH
 
 pushd ../src/libevent
-./configure --prefix="$THIRDPARTY_BUILD" --enable-shared=no --disable-libevent-regress --disable-openssl
-make DESTDIR=/root/install install
+./configure --prefix="" --enable-shared=no --disable-libevent-regress --disable-openssl
+make DESTDIR=/root/install LIBDIR=/root/install install
 popd
 
 pushd ../src/protobuf
-./configure
+./configure --prefix=""
 make check
-make DESTDIR=/root/install install
-ldconfig
+make DESTDIR=/root/install LIBDIR=/root/install install
 popd
 
 pushd ../src/grpc
-make
-make DESTDIR=/root/install install
+make prefix=/root/install LIBDIR=/root/install install
 popd
 
 pushd ../src/LuaJIT
 sed -i "s/mixed/static/g" src/Makefile
-make DESTDIR=/root/install  install
+make DESTDIR=/root/install PREFIX="" LIBDIR=/root/install install
 popd
 
 pushd ../src/opentracing-cpp
 mkdir build
 cd build
-cmake ..
-make
-make DESTDIR=/root/install install
+cmake -DCMAKE_INSTALL_PREFIX="" ..
+make DESTDIR=/root/install LIBDIR=/root/install install
 popd
 
 pushd ../src/lightstep
 mkdir build
 cd build
-cmake ..
-make
-make DESTDIR=/root/install install
+cmake -DOPENTRACING_LIBRARY=/root/install/lib/libopentracing.so -DOPENTRACING_INCLUDE_DIR=/root/install/include -DProtobuf_LIBRARY=/root/install/lib/libprotobuf.a -DProtobuf_INCLUDE_DIR=/root/install/include -DCMAKE_INSTALL_PREFIX="" -DProtobuf_PROTOC_EXECUTABLE=/root/install/bin/protoc ..
+make DESTDIR=/root/install LIBDIR=/root/install install
 popd
 
 make cmake-x86 CMAKE_MAKE_OPT="-j 8"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-
-cp -pav out/linux_amd64/release/{istio-proxy} $RPM_BUILD_ROOT%{_bindir}/
-
-# source codes for building projects
-%if 0%{?with_devel}
-install -d -p %{buildroot}/%{gopath}/src/%{import_path}/
-echo "%%dir %%{gopath}/src/%%{import_path}/." >> devel.file-list
-# find all *.go but no *_test.go files and generate devel.file-list
-for file in $(find . \( -iname "*.go" -or -iname "*.s" \) \! -iname "*_test.go") ; do
-    dirprefix=$(dirname $file)
-    install -d -p %{buildroot}/%{gopath}/src/%{import_path}/$dirprefix
-    cp -pav $file %{buildroot}/%{gopath}/src/%{import_path}/$file
-    echo "%%{gopath}/src/%%{import_path}/$file" >> devel.file-list
-
-    while [ "$dirprefix" != "." ]; do
-        echo "%%dir %%{gopath}/src/%%{import_path}/$dirprefix" >> devel.file-list
-        dirprefix=$(dirname $dirprefix)
-    done
-done
-%endif
-
-%if 0%{?with_devel}
-sort -u -o devel.file-list devel.file-list
-%endif
-
-#define license tag if not already defined
-%{!?_licensedir:%global license %doc}
 
 %files
-%license LICENSE
-%doc     README.md
-
-%files istio-proxy
-%{_bindir}/istio-proxy
-
-%if 0%{?with_devel}
-%files devel -f devel.file-list
-%license LICENSE
-%doc README.md code-of-conduct.md CONTRIBUTING.md
-%dir %{gopath}/src/%{provider}.%{provider_tld}/%{project}
-%endif
 
 %changelog
 * Tue Feb 13 2018 Bill DeCoste <wdecoste@redhat.com> - 0.4.git22a8d0c
