@@ -67,6 +67,7 @@ include(${ISTIO_CMAKE}/cares.cmake)
 include(${ISTIO_CMAKE}/http-parser.cmake)
 include(${ISTIO_CMAKE}/nghttp2.cmake)
 include(${ISTIO_CMAKE}/grpc_transcoding.cmake)
+include(${ISTIO_CMAKE}/googleapis.cmake)
 
 include(${ISTIO_CMAKE}/istio-mixer.cmake)
 include(${ISTIO_CMAKE}/envoy-api.cmake)
