@@ -197,7 +197,7 @@ rm -rf rapidjson
 git clone http://github.com/tencent/rapidjson
 cd rapidjson
 git reset --hard ${RAPIDJSON_VERSION}
-
+LUA_LI
 #### spdlog
 cd ${TMP_DIR}
 rm -rf spdlog

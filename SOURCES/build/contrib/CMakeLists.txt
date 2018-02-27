@@ -46,12 +46,9 @@ set(BUILD_TESTING "OFF")
 set(CCTZ_INCLUDE_DIRS "~/rpmbuild/BUILD/src/cctz/include")
 set(ABSL_CCTZ_TARGET "cctz")
 set(ABSL_COMMON_INCLUDE_DIRS "~/rpmbuild/BUILD/src/googletest/googletest/include")
-#set(Protobuf_INCLUDE_DIR "/root/rpmbuild/BUILD/src/protobuf/src")
 set(OPENTRACING_INCLUDE_DIR "/root/rpmbuild/BUILD/src/opentracing-cpp/include")
 set(OPENTRACING_LIBRARY "/usr/local/lib/libopentracing.so")
-#set(Protobuf_LIBRARY "/usr/local/lib/libprotobuf.a")
-#set(GRPC_INCLUDE_DIRS "/root/rpmbuild/BUILD/src/grpc/include")
-#set(GRPCPP_INCLUDE_DIRS "/root/rpmbuild/BUILD/src/grpc/include")
+
 
 # Projects already using cmake
 # Doesn't work with CMake 2.8 on trusty
@@ -61,11 +58,9 @@ add_subdirectory(${ISTIO_NATIVE}/abseil-cpp)
 add_subdirectory(${ISTIO_NATIVE}/boringssl)
 add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
-#add_subdirectory(${ISTIO_NATIVE}/protobuf/cmake)
 add_subdirectory(${ISTIO_NATIVE}/fmt)
 add_subdirectory(${ISTIO_NATIVE}/zlib)
-#add_subdirectory(${ISTIO_NATIVE}/opentracing-cpp)
-#add_subdirectory(${ISTIO_NATIVE}/lightstep)
+
 
 # Packages without cmake support - custom files, similar with the custom bazel
 include(${ISTIO_CMAKE}/cares.cmake)
