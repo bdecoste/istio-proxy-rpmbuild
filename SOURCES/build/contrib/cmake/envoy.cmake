@@ -358,19 +358,29 @@ target_link_libraries(envoy PUBLIC lightstep_tracer)
 target_link_libraries(envoy PUBLIC http-parser)
 target_link_libraries(envoy PUBLIC cares)
 target_link_libraries(envoy PUBLIC opentracing)
-target_link_libraries(envoy PUBLIC /root/install/lib/libssl.a)
-target_link_libraries(envoy PUBLIC /root/install/lib/libcrypto.a)
+
+
+target_link_libraries(envoy PUBLIC ssl)
+target_link_libraries(istiomixer PUBLIC ssl)
+target_link_libraries(envoy PUBLIC crypto)
+target_link_libraries(istiomixer PUBLIC crypto)
+
 target_link_libraries(envoy PUBLIC nghttp2)
 target_link_libraries(envoy PUBLIC event_pthreads)
 target_link_libraries(envoy PUBLIC event_core)
-target_link_libraries(envoy PUBLIC /root/install/lib/libprotobuf.a)
-target_link_libraries(istiomixer PUBLIC /root/install/lib/libprotobuf.a)
+target_link_libraries(envoy PUBLIC ${LOCAL_LIB_DIR}/lib/libprotobuf.a)
+target_link_libraries(istiomixer PUBLIC ${LOCAL_LIB_DIR}/lib/libprotobuf.a)
 target_link_libraries(envoy PUBLIC yaml-cpp)
 target_link_libraries(envoy PUBLIC grpc_transcoding)
 target_link_libraries(envoy PUBLIC xxhash)
 target_link_libraries(envoy PUBLIC fmt)
-target_link_libraries(envoy PUBLIC /root/install/lib/libgrpc++.a)
-target_link_libraries(envoy PUBLIC /root/install/lib/libgrpc.a)
+
+target_link_libraries(envoy PUBLIC ${LOCAL_LIB_DIR}/lib/libgrpc++.a)
+target_link_libraries(envoy PUBLIC ${LOCAL_LIB_DIR}/lib/libgrpc.a)
+
 target_link_libraries(envoy PUBLIC istiomixer)
+
+target_link_libraries(envoy PUBLIC /opt/rh/devtoolset-4/root/usr/lib/gcc/x86_64-redhat-linux/5.3.1/libgcc.a)
+target_link_libraries(envoy PUBLIC /opt/rh/devtoolset-4/root/usr/lib/gcc/x86_64-redhat-linux/5.3.1/libstdc++.a)
 
 

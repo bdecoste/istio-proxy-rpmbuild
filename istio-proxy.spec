@@ -89,7 +89,9 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 %build
 
-LOCAL_LIB_DIR="${LOCAL_LIB_DIR:-/root/install}"
+export LOCAL_LIB_DIR=${LOCAL_LIB_DIR:-~/install}
+
+mkdir -p ${LOCAL_LIB_DIR}/lib
 
 export LD_LIBRARY_PATH=${LOCAL_LIB_DIR}/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$LD_LIBRARY_PATH
@@ -103,30 +105,25 @@ if [ ! -e "${LOCAL_LIB_DIR}/lib/libevent.a" ]; then
 	popd
 fi
 
-#if [ ! -e "${LOCAL_LIB_DIR}/lib/libprotobuf.a" ]; then
-#	pushd ../src/protobuf
-#	./configure --prefix=""
-#	make check
-#	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
-#	popd
-#fi
-
-##pushd ../src/boringssl
-##mkdir build
-##cd build
-##cmake -DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS} ${CPPFLAGS}" -DCMAKE_C_FLAGS:STRING="${CFLAGS} ${CPPFLAGS}" -DCMAKE_INSTALL_PREFIX="" ..
-##make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR}
-##popd
+if [ ! -e "${LOCAL_LIB_DIR}/lib/libprotobuf.a" ]; then
+	pushd ../src/protobuf
+	./configure --prefix=""
+	make check
+	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
+	popd
+fi
 
 if [ ! -e "${LOCAL_LIB_DIR}/lib/libgrpc.a" ]; then
 	pushd ../src/grpc
-#	sed -i "s/all: static shared plugins/all: static plugins/g" Makefile
-#	make prefix=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install-static install-plugins
-	mkdir build
-	cd build
-	cmake ..
-	make
-	find . -name "*.a" -exec cp {} ${LOCAL_LIB_DIR}/lib \;
+	rm -rf third_party/boringssl
+	cp ../boringssl third_party
+	sed -i "s/all: static shared plugins/all: static plugins/g" Makefile
+	make prefix=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install-static install-plugins
+#	mkdir build
+#	cd build
+#	cmake ..
+#	make
+#	find . -name "*.a" -exec cp {} ${LOCAL_LIB_DIR}/lib \;
 	popd
 fi
 
@@ -152,7 +149,7 @@ if [ ! -e "${LOCAL_LIB_DIR}/lib/liblightstep_tracer.a" ]; then
 	pushd ../src/lightstep
 	mkdir build
 	cd build
-	cmake -DOPENTRACING_LIBRARY=${LOCAL_LIB_DIR}/lib/libopentracing.so -DOPENTRACING_INCLUDE_DIR=${LOCAL_LIB_DIR}/include -DProtobuf_LIBRARY=${LOCAL_LIB_DIR}/lib/libprotobuf.a -DProtobuf_INCLUDE_DIR=/#root/install/include -DCMAKE_INSTALL_PREFIX="" -DProtobuf_PROTOC_EXECUTABLE=${LOCAL_LIB_DIR}/bin/protoc ..
+	cmake -DOPENTRACING_LIBRARY=${LOCAL_LIB_DIR}/lib/libopentracing.so -DOPENTRACING_INCLUDE_DIR=${LOCAL_LIB_DIR}/include -DProtobuf_LIBRARY=${LOCAL_LIB_DIR}/lib/libprotobuf.a -DProtobuf_INCLUDE_DIR=${LOCAL_LIB_DIR}/include -DCMAKE_INSTALL_PREFIX="" -DProtobuf_PROTOC_EXECUTABLE=${LOCAL_LIB_DIR}/bin/protoc ..
 	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
 	popd
 fi
