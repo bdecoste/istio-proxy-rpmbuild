@@ -5,6 +5,7 @@
 * Make sure you don't have any of the following installed: libevent,protobuf,grpc,LuaJIT,opentracing,lightstep
 * yum install -y --disablerepo=\* --enablerepo=rhel-7-server-extras-rpms --enablerepo=rhel-7-server-optional-rpms --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-server-rhscl-7-rpms docker hostname wget cmake3 devtoolset-4-gcc devtoolset-4-gcc-c++ devtoolset-4-libatomic-devel devtoolset-4-libstdc++-devel devtoolset-4-runtime 
 * yum install -y --disablerepo=\* --enablerepo=rhel-7-server-optional-rpms --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-server-rhscl-7-rpms zlib-devel git unzip make libtool patch 
+* yum install -y --disablerepo=\* --enablerepo=rhel-7-server-optional-rpms --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-server-rhscl-7-rpms openssl-static
 * source /opt/rh/devtoolset-4/enable
 * mkdir -p /root/install
 * mkdir -p /root/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}

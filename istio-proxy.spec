@@ -89,46 +89,75 @@ cp ../genfiles/thirdparty_build/include/event.h ../genfiles/thirdparty_build/inc
 
 %build
 
-export LD_LIBRARY_PATH=/root/install/lib:$LD_LIBRARY_PATH
+LOCAL_LIB_DIR="${LOCAL_LIB_DIR:-/root/install}"
+
+export LD_LIBRARY_PATH=${LOCAL_LIB_DIR}/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=/root/install/lib/pkgconfig
-export PATH=/root/install/bin:$PATH
+export PKG_CONFIG_PATH=${LOCAL_LIB_DIR}/lib/pkgconfig
+export PATH=${LOCAL_LIB_DIR}/bin:$PATH
 
-pushd ../src/libevent
-./configure --prefix="" --enable-shared=no --disable-libevent-regress --disable-openssl
-make DESTDIR=/root/install LIBDIR=/root/install install
-popd
+if [ ! -e "${LOCAL_LIB_DIR}/lib/libevent.a" ]; then
+	pushd ../src/libevent
+	./configure --prefix="" --enable-shared=no --disable-libevent-regress --disable-openssl
+	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
+	popd
+fi
 
-pushd ../src/protobuf
-./configure --prefix=""
-make check
-make DESTDIR=/root/install LIBDIR=/root/install install
-popd
+#if [ ! -e "${LOCAL_LIB_DIR}/lib/libprotobuf.a" ]; then
+#	pushd ../src/protobuf
+#	./configure --prefix=""
+#	make check
+#	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
+#	popd
+#fi
 
-pushd ../src/grpc
-make prefix=/root/install LIBDIR=/root/install install
-popd
+##pushd ../src/boringssl
+##mkdir build
+##cd build
+##cmake -DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS} ${CPPFLAGS}" -DCMAKE_C_FLAGS:STRING="${CFLAGS} ${CPPFLAGS}" -DCMAKE_INSTALL_PREFIX="" ..
+##make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR}
+##popd
 
-pushd ../src/LuaJIT
-sed -i "s/mixed/static/g" src/Makefile
-make DESTDIR=/root/install PREFIX="" LIBDIR=/root/install install
-popd
+if [ ! -e "${LOCAL_LIB_DIR}/lib/libgrpc.a" ]; then
+	pushd ../src/grpc
+#	sed -i "s/all: static shared plugins/all: static plugins/g" Makefile
+#	make prefix=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install-static install-plugins
+	mkdir build
+	cd build
+	cmake ..
+	make
+	find . -name "*.a" -exec cp {} ${LOCAL_LIB_DIR}/lib \;
+	popd
+fi
 
-pushd ../src/opentracing-cpp
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX="" ..
-make DESTDIR=/root/install LIBDIR=/root/install install
-popd
+if [ ! -e "${LOCAL_LIB_DIR}/lib/libluajit-5.1.a" ]; then
+	pushd ../src/LuaJIT
+	sed -i "s/mixed/static/g" src/Makefile
+	sed -i "s/CC= $(DEFAULT_CC)/CC ?= $(DEFAULT_CC)/g" src/Makefile
+	sed -i "s/#XCFLAGS/XCFLAGS/g" src/Makefile
+	make DESTDIR=${LOCAL_LIB_DIR} PREFIX="" LIBDIR=${LOCAL_LIB_DIR} install
+	popd
+fi
 
-pushd ../src/lightstep
-mkdir build
-cd build
-cmake -DOPENTRACING_LIBRARY=/root/install/lib/libopentracing.so -DOPENTRACING_INCLUDE_DIR=/root/install/include -DProtobuf_LIBRARY=/root/install/lib/libprotobuf.a -DProtobuf_INCLUDE_DIR=/root/install/include -DCMAKE_INSTALL_PREFIX="" -DProtobuf_PROTOC_EXECUTABLE=/root/install/bin/protoc ..
-make DESTDIR=/root/install LIBDIR=/root/install install
-popd
+if [ ! -e "${LOCAL_LIB_DIR}/lib/libopentracing.a" ]; then
+	pushd ../src/opentracing-cpp
+	mkdir build
+	cd build
+	cmake -DCMAKE_INSTALL_PREFIX="" ..
+	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
+	popd
+fi
 
-make cmake-x86 CMAKE_MAKE_OPT="-j 8"
+if [ ! -e "${LOCAL_LIB_DIR}/lib/liblightstep_tracer.a" ]; then
+	pushd ../src/lightstep
+	mkdir build
+	cd build
+	cmake -DOPENTRACING_LIBRARY=${LOCAL_LIB_DIR}/lib/libopentracing.so -DOPENTRACING_INCLUDE_DIR=${LOCAL_LIB_DIR}/include -DProtobuf_LIBRARY=${LOCAL_LIB_DIR}/lib/libprotobuf.a -DProtobuf_INCLUDE_DIR=/#root/install/include -DCMAKE_INSTALL_PREFIX="" -DProtobuf_PROTOC_EXECUTABLE=${LOCAL_LIB_DIR}/bin/protoc ..
+	make DESTDIR=${LOCAL_LIB_DIR} LIBDIR=${LOCAL_LIB_DIR} install
+	popd
+fi
+
+make cmake-x86 CMAKE_MAKE_OPT="-j 8" 
 
 %install
 

@@ -29,7 +29,6 @@ set(YAML_CPP_BUILD_TOOLS OFF CACHE bool "disable tools" FORCE)
 set(protobuf_BUILD_TESTS OFF CACHE bool "disable tests" FORCE)
 set(ZLIB_LIBRARY "" CACHE string "no zlib" FORCE)
 
-
 # To compile boring ssl - requires go in path
 set(GO_EXECUTABLE "go")
 
@@ -38,6 +37,7 @@ set(BUILD_TESTING OFF CACHE bool "" FORCE)
 add_definitions(-DHAVE_PTHREAD)
 
 set(OPENSSL_ROOT_DIR "~/rpmbuild/BUILD/src/boringssl")
+set(OPENSSL_ROOT "/root/install")
 
 set(GTEST_LIBRARY "~/rpmbuild/BUILD/cmake-build-debug/src/googletest/googlemock/gtest/libgtest.a")
 set(GTEST_INCLUDE_DIR "~/rpmbuild/BUILD/src/googletest/googletest/include")
@@ -47,7 +47,6 @@ set(CCTZ_INCLUDE_DIRS "~/rpmbuild/BUILD/src/cctz/include")
 set(ABSL_CCTZ_TARGET "cctz")
 set(ABSL_COMMON_INCLUDE_DIRS "~/rpmbuild/BUILD/src/googletest/googletest/include")
 set(OPENTRACING_INCLUDE_DIR "/root/rpmbuild/BUILD/src/opentracing-cpp/include")
-set(OPENTRACING_LIBRARY "/usr/local/lib/libopentracing.so")
 
 
 # Projects already using cmake
@@ -55,11 +54,12 @@ set(OPENTRACING_LIBRARY "/usr/local/lib/libopentracing.so")
 add_subdirectory(${ISTIO_NATIVE}/googletest)
 add_subdirectory(${ISTIO_NATIVE}/cctz)
 add_subdirectory(${ISTIO_NATIVE}/abseil-cpp)
-add_subdirectory(${ISTIO_NATIVE}/boringssl)
+#add_subdirectory(${ISTIO_NATIVE}/boringssl)
 add_subdirectory(${ISTIO_NATIVE}/yaml-cpp)
 add_subdirectory(${ISTIO_NATIVE}/xxhash/cmake_unofficial)
 add_subdirectory(${ISTIO_NATIVE}/fmt)
 add_subdirectory(${ISTIO_NATIVE}/zlib)
+
 
 
 # Packages without cmake support - custom files, similar with the custom bazel

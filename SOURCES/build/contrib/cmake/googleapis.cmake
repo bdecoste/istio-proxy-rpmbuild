@@ -6,6 +6,7 @@ set_target_properties(googleapis PROPERTIES COMPILE_FLAGS -DBUILDING_GOOGLEAPIS)
 
 target_include_directories(googleapis PRIVATE
         ${ISTIO_DEP_GENFILES}/external/com_github_googleapis_googleapis
+	${ISTIO_DEP_GENFILES}/external/com_google_protobuf/src
 )
 
 
