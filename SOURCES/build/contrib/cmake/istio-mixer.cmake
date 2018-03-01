@@ -1,54 +1,38 @@
 
 set(ISTIOMIXER_SOURCES
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_api_spec_parser_impl.cc
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_api_spec_parser_test.cc
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_template.cc
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_template_test.cc
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/path_matcher_node.cc
-        ${ISTIO_NATIVE}/mixerclient/api_spec/src/path_matcher_test.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/attribute_names.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/client_context_base.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/http/attributes_builder.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/http/attributes_builder_test.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/http/client_context.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/http/controller_impl.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/http/request_handler_impl.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/http/request_handler_impl_test.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/http/service_context.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/tcp/attributes_builder.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/tcp/attributes_builder_test.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/tcp/controller_impl.cc
         ${ISTIO_NATIVE}/mixerclient/control/src/tcp/request_handler_impl.cc
-        ${ISTIO_NATIVE}/mixerclient/control/src/tcp/request_handler_impl_test.cc
+        ${ISTIO_NATIVE}/mixerclient/control/src/attribute_names.cc
+        ${ISTIO_NATIVE}/mixerclient/control/src/client_context_base.cc
+
         ${ISTIO_NATIVE}/mixerclient/control/src/utils/status.cc
-        ${ISTIO_NATIVE}/mixerclient/prefetch/circular_queue_test.cc
-        ${ISTIO_NATIVE}/mixerclient/prefetch/quota_prefetch.cc
-        ${ISTIO_NATIVE}/mixerclient/prefetch/quota_prefetch_test.cc
-        ${ISTIO_NATIVE}/mixerclient/prefetch/time_based_counter.cc
-        ${ISTIO_NATIVE}/mixerclient/prefetch/time_based_counter_test.cc
-        ${ISTIO_NATIVE}/mixerclient/quota/src/config_parser_impl.cc
-        ${ISTIO_NATIVE}/mixerclient/quota/src/config_parser_impl_test.cc
         ${ISTIO_NATIVE}/mixerclient/src/attribute_compressor.cc
-        ${ISTIO_NATIVE}/mixerclient/src/attribute_compressor_test.cc
         ${ISTIO_NATIVE}/mixerclient/src/attributes_builder.cc
         ${ISTIO_NATIVE}/mixerclient/src/check_cache.cc
-        ${ISTIO_NATIVE}/mixerclient/src/check_cache_test.cc
-        ${ISTIO_NATIVE}/mixerclient/src/client_impl.cc
-        ${ISTIO_NATIVE}/mixerclient/src/client_impl_test.cc
-        ${ISTIO_NATIVE}/mixerclient/src/delta_update.cc
-        ${ISTIO_NATIVE}/mixerclient/src/delta_update_test.cc
-        ${ISTIO_NATIVE}/mixerclient/src/quota_cache.cc
-        ${ISTIO_NATIVE}/mixerclient/src/quota_cache_test.cc
+        # CLang build errors
         ${ISTIO_NATIVE}/mixerclient/src/referenced.cc
-        ${ISTIO_NATIVE}/mixerclient/src/referenced_test.cc
-        ${ISTIO_NATIVE}/mixerclient/src/report_batch.cc
-        ${ISTIO_NATIVE}/mixerclient/src/report_batch_test.cc
+        ${ISTIO_NATIVE}/mixerclient/src/client_impl.cc
+        ${ISTIO_NATIVE}/mixerclient/src/delta_update.cc
+        ${ISTIO_NATIVE}/mixerclient/src/quota_cache.cc
         ${ISTIO_NATIVE}/mixerclient/utils/md5.cc
-        ${ISTIO_NATIVE}/mixerclient/utils/md5_test.cc
         ${ISTIO_NATIVE}/mixerclient/utils/protobuf.cc
-        ${ISTIO_NATIVE}/mixerclient/utils/simple_lru_cache_test.cc
+        ${ISTIO_NATIVE}/mixerclient/src/report_batch.cc
+        ${ISTIO_NATIVE}/mixerclient/prefetch/quota_prefetch.cc
+        ${ISTIO_NATIVE}/mixerclient/prefetch/time_based_counter.cc
 
-        ${ISTIO_DEP_GENFILES}/external/mixerclient_git/src/global_dictionary.cc
+        ${ISTIO_NATIVE}/mixerclient/quota/src/config_parser_impl.cc
+        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_api_spec_parser_impl.cc
+        ${ISTIO_NATIVE}/mixerclient/api_spec/src/http_template.cc
+        ${ISTIO_NATIVE}/mixerclient/api_spec/src/path_matcher_node.cc
+
+        #${ISTIO_DEP_GENFILES}/external/gogoproto_git/gogoproto/gogo.pb.cc
+
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/config/client/api_spec.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/config/client/auth.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/config/client/client_config.pb.cc
@@ -58,6 +42,7 @@ set(ISTIOMIXER_SOURCES
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/check.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/report.pb.cc
         ${ISTIO_DEP_GENFILES}/external/mixerapi_git/mixer/v1/service.pb.cc
+	${ISTIO_DEP_GENFILES}/external/mixerclient_git/src/global_dictionary.cc
         )
 
 
@@ -86,4 +71,5 @@ target_include_directories(istiomixer
         ${ISTIO_NATIVE}/lightstep/src/c++11
         ${ISTIO_NATIVE}/protobuf/src
         )
+
 
